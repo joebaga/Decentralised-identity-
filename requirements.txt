@@ -1,0 +1,3 @@
+web3==7.5.0
+py-solc-x
+tk
