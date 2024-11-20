@@ -1,3 +1,9 @@
 web3==7.5.0
 py-solc-x
 tk
+web3
+pycryptodome
+geopy 
+pynmea2 
+pyserial 
+requests

@@ -1,10 +1,11 @@
+# deploy_contract.py
 import os
-import json
 import time
 from web3 import Web3
 import solcx
 from solcx import compile_source
 
+# Detect Solidity version from contract file
 def pragma_finder(file_path):
     with open(file_path, 'r') as f:
         lines = f.read().split("\n")
@@ -55,13 +56,4 @@ def deploy_contract():
     txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
     
     txn_receipt = w3.eth.wait_for_transaction_receipt(txn_hash)
-    
-    # Save the contract address and ABI
-    contract_data = {
-        "address": txn_receipt.contractAddress,
-        "abi": contract_interface['abi']
-    }
-    with open("contract_data.json", "w") as f:
-        json.dump(contract_data, f)
-    
-    return contract_data
+    return txn_receipt.contractAddress

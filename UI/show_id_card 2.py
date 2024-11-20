@@ -2,32 +2,8 @@ import tkinter as tk
 from tkinter import ttk
 from datetime import datetime
 import json
-from UI.did_manager import generate_did
-from UI.geo_auth import set_safe_zones 
-from src.interact_contract import get_contract
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-def interact_with_contract(did, vc):
-    try:
-        contract, w3 = get_contract()
-        wallet_address = "Your Ganache Wallet Address"
-        private_key = "Your Ganache Private Key"
-        
-        nonce = w3.eth.getTransactionCount(wallet_address)
-        transaction = contract.functions.registerIdentity(did, vc).buildTransaction({
-            'from': wallet_address,
-            'nonce': nonce,
-            'gas': 2000000,
-            'gasPrice': w3.toWei('50', 'gwei')
-        })
-        signed_txn = w3.eth.account.sign_transaction(transaction, private_key=private_key)
-        txn_hash = w3.eth.sendRawTransaction(signed_txn.rawTransaction)
-        receipt = w3.eth.wait_for_transaction_receipt(txn_hash)
-        print(f"Transaction successful with hash: {txn_hash.hex()}")
-    except Exception as e:
-        print(f"Error interacting with the contract: {e}")
+from did_manager import generate_did
+from geo_auth import set_safe_zones
 
 def generate_vc(id_num, name, dob, address):
     issuance_date = datetime.now().strftime("%Y-%m-%d")
@@ -89,10 +65,6 @@ def show_id_card(root, id_num, name, dob, address, back_command):
     # Generate DID and VC
     did = generate_did(id_num, name)
     vc = generate_vc(id_num, name, dob, address)
-
-    #register the did to the blockchain
-
-    interact_with_contract(did, vc)
     
     # ID Card Display
     id_frame = tk.Toplevel(root)
@@ -124,7 +96,7 @@ def show_id_card(root, id_num, name, dob, address, back_command):
     footer_frame.pack(fill="x", pady=10)
     tk.Button(footer_frame, text="USE DID", command=lambda: display_did_details(did), bg="#1e90ff", fg="#0a0a1a").pack(side="left", padx=10)
     tk.Button(footer_frame, text="USE VC", command=lambda: display_vc_details(vc), bg="#1e90ff", fg="#0a0a1a").pack(side="left", padx=10)
-    
+    tk.Button(footer_frame, text="Back", command=back_command, bg="gray", fg="#0a0a1a").pack(side="left", padx=10)
     
 
     def delete_card():
@@ -137,7 +109,6 @@ def show_id_card(root, id_num, name, dob, address, back_command):
         back_command()
         
     tk.Button(footer_frame, text="Delete ID", command=delete_card, bg="red", fg="#0a0a1a").pack(side="right", padx=10)
-    tk.Button(footer_frame, text="Back", command=back_command, bg="gray", fg="#0a0a1a").pack(side="left", padx=10)
     
     # Save DID and VC to JSON
     with open("id_data.json", "r+") as f:

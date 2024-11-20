@@ -1,12 +1,11 @@
 import tkinter as tk
-import os
 from tkinter import messagebox
 from geopy.distance import geodesic
 import requests
 import json
-from UI.data_utils import load_safe_zones_data, save_safe_zones, search_id_data
+from data_utils import load_safe_zones_data, save_safe_zones, search_id_data
 
-API_KEY = os.getenv("API_KEY")
+API_KEY = '2fa839428f58aa2298ea94ada85187d2'
 
 def get_coordinates(address):
     """Retrieve latitude and longitude for a given address using Kakao API."""
@@ -28,7 +27,8 @@ def get_current_location():
         response = requests.get("http://ip-api.com/json/")
         data = response.json()
         if response.status_code == 200 and data.get("status") == "success":
-            return float(data['lat']), float(data['lon'])  
+            location_name = f"{data['city']}, {data['regionName']}, {data['country']}"
+            return location_name 
         else:
             raise ValueError("Unable to determine location via IP.")
     except Exception as e:
@@ -42,10 +42,26 @@ def is_within_any_safe_zone(current_location, safe_zones, threshold=1000):
             return True
     return False
 
+def save_safe_zones(user_id, safe_zones_coords):
+    """Save safe zones coordinates for a user."""
+    try:
+        data = load_safe_zones_data()
+        data[user_id] = safe_zones_coords
+        with open("safe_zones.json", 'w') as f:
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        print(f"Error saving safe zones: {e}")
+
+def load_safe_zones_data():
+    """Load all safe zones data."""
+    try:
+        with open("safe_zones.json", 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return {}
+
 def set_safe_zones(root, user_id):
     def check_location():
-        nonlocal status_label 
-
         # Collect safe zone addresses
         safe_zones_addresses = [
             address1_entry.get().strip(),
@@ -64,11 +80,6 @@ def set_safe_zones(root, user_id):
                     messagebox.showerror("Error", f"Invalid address: {addr}")
                     return
 
-        # Validate coordinates before saving
-        if not all(isinstance(coords, tuple) and len(coords) == 2 for coords in safe_zones_coords):
-            messagebox.showerror("Error", "Invalid coordinates detected. Please check your inputs.")
-            return
-
         # Save the updated safe zones
         save_safe_zones(user_id, safe_zones_coords)
 
@@ -85,8 +96,8 @@ def set_safe_zones(root, user_id):
             messagebox.showerror("Error", str(e))
 
     geo_window = tk.Toplevel(root)
-    geo_window.title("Zone Setup")
-    geo_window.geometry("500x450")
+    geo_window.title("Safe Zone Setup")
+    geo_window.geometry("600x450")
     geo_window.configure(bg="#f4f4f8")
 
     # Create left frame for buttons
@@ -139,15 +150,15 @@ def set_safe_zones(root, user_id):
             current_coords = get_current_location()
             saved_zones = load_safe_zones_data().get(str(user_id), [])
             if is_within_any_safe_zone(current_coords, saved_zones):
-                ipa_zone_label.config(text="Your current location is within a safe zone, the ID can be used without any authantifiction ", fg="green")
+                ipa_zone_label.config(text="Your current location is within a safe zone", fg="green")
             else:
-                ipa_zone_label.config(text="Your current location is NOT within a safe zone, use your passWord to have access to your ID", fg="red")
+                ipa_zone_label.config(text="Your current location is NOT within a safe zone", fg="red")
             ipa_zone_label.pack(pady=10)
         except ValueError as e:
             ipa_zone_label.config(text=f"Error: {e}", fg="red")
             ipa_zone_label.pack(pady=10)
 
-    # Buttons in the left frame 
+    # Buttons in the left frame with consistent design
     button_style = {'bg': "#1e90ff", 'fg': "black", 'font': ("Segoe UI", 12), 'width': 20, 'height': 2}
     tk.Button(left_frame, text="Safe Zone", command=display_saved_safe_zone, **button_style).pack(pady=10)
     tk.Button(left_frame, text="Change Zone", command=change_safe_zone, **button_style).pack(pady=10)
@@ -157,18 +168,14 @@ def set_safe_zones(root, user_id):
     saved_zones_label = tk.Label(right_frame, text="Saved Safe Zones: None", font=("Segoe UI", 12), bg="#ffffff")
     change_label = tk.Label(right_frame, text="Enter New Safe Zone Addresses", font=("Segoe UI", 14, "bold"), bg="#ffffff")
     ipa_zone_label = tk.Label(right_frame, text="Check IPA Zone", font=("Segoe UI", 12), bg="#ffffff")
-
-    # Input fields for the safe zone addresses (add more if want )
+    
+    # Input fields for the safe zone addresses
     address1_entry = tk.Entry(right_frame, font=("Segoe UI", 12), width=30, relief="solid", bd=2)
     address2_entry = tk.Entry(right_frame, font=("Segoe UI", 12), width=30, relief="solid", bd=2)
     address3_entry = tk.Entry(right_frame, font=("Segoe UI", 12), width=30, relief="solid", bd=2)
 
     # Save button to save the new safe zones
     save_button = tk.Button(right_frame, text="Save Safe Zones", command=check_location, **button_style)
-
-    # Add a status label for disply the current location status
-    status_label = tk.Label(right_frame, text="", font=("Segoe UI", 14), bg="#ffffff")
-    status_label.pack(pady=10)
 
     # Add a dividing line between frames
     divider = tk.Frame(geo_window, height=1, bg="#eaeaea", width=780)

@@ -1,10 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-from UI.data_utils import generate_unique_id, save_id_data, load_id_data, search_id_data, delete_id_data
-from UI.show_id_card import show_id_card 
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) 
+from data_utils import generate_unique_id, save_id_data, load_id_data, search_id_data, delete_id_data
+from show_id_card import show_id_card  
 
 # Main Application Class
 class IDApp:
@@ -56,13 +53,13 @@ class IDApp:
         
         # Create a centered search frame with fixed dimensions
         search_frame = tk.Frame(self.root, bg="#262666", width=450, height=400)
-        search_frame.place(relx=0.5, rely=0.1, anchor="n")  
-        search_frame.pack_propagate(False)  
+        search_frame.place(relx=0.5, rely=0.1, anchor="n")  # Centering at the top
+        search_frame.pack_propagate(False)  # Prevents auto-resizing of the frame
         
         # Title for the search functionality
         tk.Label(search_frame, text="Search ID by Number", font=("Arial", 18, "bold"), bg="#262666").pack(pady=15)
         
-        
+        # Search entry and button in the center
         self.search_entry = tk.Entry(search_frame, width=30)
         self.search_entry.pack(pady=5)
         
@@ -132,4 +129,9 @@ class IDApp:
         self.__init__(self.root)
 
     def clear_frame(self, frame):
-        for widget in fr
+        for widget in frame.winfo_children():
+            widget.destroy()
+
+root = tk.Tk()
+app = IDApp(root)
+root.mainloop()

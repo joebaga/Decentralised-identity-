@@ -6,10 +6,10 @@ DID_DATA_FILE = "did_data.json"
 
 # Function to generate a unique DID using a hashing approach
 def generate_did(id_num, name):
-    
+    # Creating a simple hash-based DID
     unique_string = f"{id_num}-{name}"
     did = hashlib.sha256(unique_string.encode()).hexdigest()
-    return f"did:example:{did[:10]}"  
+    return f"did:example:{did[:10]}"  # Shortening for readability
 
 # Function to load and generate DIDs for each registered ID
 def generate_dids_for_registered_ids():
@@ -20,7 +20,7 @@ def generate_dids_for_registered_ids():
         
         did_data = []
         
-
+        # Process each entry to generate a DID
         for entry in id_data:
             did_entry = {
                 "id": entry["id"],
@@ -38,5 +38,5 @@ def generate_dids_for_registered_ids():
     except Exception as e:
         print(f"Error generating DIDs: {e}")
 
-
+# Run the DID generation function
 generate_dids_for_registered_ids()
