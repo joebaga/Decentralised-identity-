@@ -1,38 +1,3 @@
-# 1. Research summary
-
-In this section, I will highlight my understanding of the Open Wallet Foundation's ecosystem.
-
- The Open Wallet Foundation (OWF) was formed to support the development of wallets that are portable, secure, and universally accessible. These wallets can be used on any device, with any operating system, and with any currency. They are designed to be secure and compliant with global standards.
-
-- key focus Areas:
-    - **Verifiable Credentials (VCs)**: is trusted information about someone or something, like a name, ID, degree, or address, that proves identity or qualifications. The goal is to securely store, share, and verify these claims digitally for use in real-world scenarios, like proving eligibility or achievements.
-    
-    [Verifiable Credentials Use Cases](https://www.w3.org/TR/vc-use-cases/#dfn-verifiable-credentials)
-    
-    ![VC_triangle_of_Trust.svg.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/361e1a66-2e2a-475e-b07c-7c5958d42875/abf8c505-80e2-40b1-884b-62faa9c26e97.png)
-    
-    - **Decentralized Identifiers (DIDs)** : are self-controlled, secure digital IDs that operate without central authorities. Each DID links to a document containing cryptographic data and services for secure verification and trusted interactions.
-    - 
-    
-    [Decentralized Identifiers (DIDs) v1.0](https://www.w3.org/TR/did-core/#dfn-decentralized-identifiers)
-    
-    ![DIDs_image.jpeg](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/ae8284cf-42be-4011-89e8-27ce0efd7368/DIDs_image.jpeg)
-    
-    - **EUDI wallet requirements**
-    - 
-    
-    [EU Digital Identity Wallet Home - EU Digital Identity Wallet -](https://ec.europa.eu/digital-building-blocks/sites/display/EUDIGITALIDENTITYWALLET/EU+Digital+Identity+Wallet+Home#:~:text=Your%20wallet%20will%20generate%20a,allows%20both%20applications%20to%20connect.%E2%80%9D)
-    
-    The EUDI wallet provides a secure, digital method for European citizens and businesses to manage and share identity documents—such as academic credentials and health cards—with verified entities. It enhances privacy by allowing users to share only necessary information.
-    
-    Pilot projects are currently testing the wallet's functionality across various sectors, including government services, banking, education, and travel. These tests involve 360 entities from 26 EU Member States. The wallet's prototype is open-source, and insights from these pilots will help refine its security and interoperability. Full deployment is planned for 2025.
-    
-
-# 2. problem Statement
-
-*Since I started working on this project, I've had various ideas about what should be added to the Open Wallet to meet OWF requirements, such as biometric behavior for securing the wallet . However, the idea that stands out is to create something that functions like a physical wallet. Typically, when we use our wallets, there are comfort zones where we don't need to secure them constantly, like at work or home. Conversely, there are places where we need our wallets to be completely secure, such as in bars or public spaces where we could easily lose them.* 
-
-# 3.solution Design
 
 ### project overview
 
