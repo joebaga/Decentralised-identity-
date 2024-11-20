@@ -4,8 +4,8 @@
 The primary focus of this project was to create a simple DIDs and VCs system that integrates blockchain technologies, user convenience, and enhanced security. The project includes a unique geolocation-based authentication mechanism that allows users to determine if they are within a safe zone or located in a non-safe zone. 
 
 ### ID frame
+<img width="394" alt="Screenshot 2024-11-20 at 7 28 33 AM" src="https://github.com/user-attachments/assets/5b8ce0c4-fd39-46f7-93ba-41a1804f55fc">
 
-![Screenshot 2024-11-20 at 7.28.33 AM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/4ff98c66-d585-46cc-9827-e5fb9dd1ca8b/Screenshot_2024-11-20_at_7.28.33_AM.png)
 
 this frame displays the ID that was manually registered by the user where here is information such as ID number, Full Name, Date of birth, address, a photo.
 
@@ -13,18 +13,21 @@ on this frame there is options button such as USE DID, USE VC, Back, delete, Set
 
 when hitting the setting button we open a windows where we can configure the input safe zone
  
+<img width="493" alt="Screenshot 2024-11-20 at 7 29 10 AM" src="https://github.com/user-attachments/assets/cd3476dc-886b-4db2-aa08-d958fa0d25c5">
 
-![Screenshot 2024-11-20 at 7.29.10 AM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/8a9971d6-ce06-42d8-8e6a-64d564597ac1/Screenshot_2024-11-20_at_7.29.10_AM.png)
+
 
 My location button indicates the location where my device is located and indicate if i am in a safe zone based on the location and address i added as safe zone 
+<img width="796" alt="Screenshot 2024-11-20 at 7 29 38 AM" src="https://github.com/user-attachments/assets/6dfda685-a3de-4ef6-abc7-a24c18b111df">
 
-![Screenshot 2024-11-20 at 7.29.38 AM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/d5823f5e-78bd-4343-976e-6637dd580c24/Screenshot_2024-11-20_at_7.29.38_AM.png)
 
 the other button VC and DID open separate windows and show how the VCs would look like 
 
-![Screenshot 2024-11-20 at 7.28.19 AM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/10ce2e9a-1408-45dd-9acc-3237e37f167d/Screenshot_2024-11-20_at_7.28.19_AM.png)
+<img width="398" alt="Screenshot 2024-11-20 at 7 28 19 AM" src="https://github.com/user-attachments/assets/b5c0f287-2c45-4532-92c7-07c708e3209d">
 
-![Screenshot 2024-11-20 at 7.28.43 AM.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/21c1b105-5825-41f6-a506-3b38939ec053/575b6780-0917-4724-aea7-135d1a8918b2/Screenshot_2024-11-20_at_7.28.43_AM.png)
+<img width="394" alt="Screenshot 2024-11-20 at 7 28 43 AM" src="https://github.com/user-attachments/assets/18250cb2-a87b-4638-a944-146e18a27886">
+
+
 
 the first screen shows the verifiable credentials and the second show the DID details 
 
